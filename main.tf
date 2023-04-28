@@ -73,6 +73,7 @@ output "a_single_var" {
 }
 
 # Print the value of the environment variables
+/*
 resource "null_resource" "env_vars" {
   provisioner "local-exec" {
     command = <<EOT
@@ -81,4 +82,59 @@ resource "null_resource" "env_vars" {
       echo sens_env_var = $sens_env_var
     EOT
   }
+}
+*/
+ 
+variable "region" {
+  description = "AWS region"
+  default     = "us-west-1"
+}
+
+variable "instance_type" {
+  description = "Type of EC2 instance to provision"
+  default     = "t2.micro"
+}
+
+variable "instance_name" {
+  description = "EC2 instance name"
+  default     = "Provisioned by Terraform"
+}
+
+provider "aws" {
+  region = var.region
+  access_key = "AKIASSWMWFGSV5JKSE57"
+  secret_key = "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"
+}
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  owners = ["099720109477"] # Canonical
+}
+
+resource "aws_instance" "ubuntu" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = var.instance_type
+
+  tags = {
+    Name = var.instance_name
+  }
+}
+
+output "instance_ami" {
+  value = aws_instance.ubuntu.ami
+}
+
+output "instance_arn" {
+  value = aws_instance.ubuntu.arn
 }
