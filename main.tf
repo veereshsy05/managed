@@ -22,6 +22,7 @@ variable "a_string" {
   type = string
   default = "a default string"
 }
+sdfsd
 
 # Value is initially supplied via some.auto.tfvars
 variable "a_number" {
