@@ -106,35 +106,11 @@ provider "aws" {
   secret_key = "glQ6HlTlN/5FuYMXdTk9NP9g9J4JKSf1dsnJJI/3"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"] # Canonical
-}
-
-resource "aws_instance" "ubuntu" {
-  ami           = data.aws_ami.ubuntu.id
-  instance_type = var.instance_type
-
-  tags = {
-    Name = var.instance_name
-  }
-}
-
-output "instance_ami" {
-  value = aws_instance.ubuntu.ami
-}
-
-output "instance_arn" {
-  value = aws_instance.ubuntu.arn
+resource "aws_vpc" "main" {
+ cidr_block = "10.0.0.0/16"
+ 
+ tags = {
+   Name = "mvc-demo"
+ }
 }
