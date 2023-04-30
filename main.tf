@@ -102,8 +102,7 @@ variable "instance_name" {
 
 provider "aws" {
   region = var.region
-  access_key = "AKIASSWMWFGSV5JKSE57"
-  secret_key = "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"
+
 }
 
 
