@@ -95,11 +95,12 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
+
 variable "instance_name" {
   description = "EC2 instance name"
   default     = "Provisioned by Terraform"
 }
-
+/*
 variable "AWS_ACCESS_KEY_ID" {
   description = "AWS ACCESS KEY"
   
@@ -109,7 +110,7 @@ variable "AWS_SECRET_ACCESS_KEY" {
   description = "AWS SECRET KEY"
   
 }
-
+*/
 
 provider "aws" {
   region = var.region
