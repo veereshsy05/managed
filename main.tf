@@ -100,11 +100,22 @@ variable "instance_name" {
   default     = "Provisioned by Terraform"
 }
 
-provider "aws" {
-  region = var.region
-
+variable "aws_access_key" {
+  description = "AWS ACCESS KEY"
+  
 }
 
+variable "aws_secret_key" {
+  description = "AWS SECRET KEY"
+  
+}
+
+
+provider "aws" {
+  region = var.region
+  access_key = var.aws_access_key
+  secret_key = var.aws_secret_key
+}
 
 resource "aws_vpc" "main" {
  cidr_block = "10.0.0.0/16"
