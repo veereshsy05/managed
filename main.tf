@@ -73,7 +73,7 @@ output "a_single_var" {
 }
 
 # Print the value of the environment variables
-/*
+
 resource "null_resource" "env_vars" {
   provisioner "local-exec" {
     command = <<EOT
@@ -83,45 +83,5 @@ resource "null_resource" "env_vars" {
     EOT
   }
 }
-*/
- 
-variable "region" {
-  description = "AWS region"
-  default     = "ap-south-1"
-}
 
-variable "instance_type" {
-  description = "Type of EC2 instance to provision"
-  default     = "t2.micro"
-}
-
-
-variable "instance_name" {
-  description = "EC2 instance name"
-  default     = "Provisioned by Terraform"
-}
-/*
-variable "AWS_ACCESS_KEY_ID" {
-  description = "AWS ACCESS KEY"
-  
-}
-
-variable "AWS_SECRET_ACCESS_KEY" {
-  description = "AWS SECRET KEY"
-  
-}
-*/
-
-provider "aws" {
-  region = var.region
-
-}
-
-
-resource "aws_vpc" "main" {
- cidr_block = "10.0.0.0/16"
- 
- tags = {
-   Name = "mvc-demo"
- }
 }
